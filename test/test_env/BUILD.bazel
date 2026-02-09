@@ -48,3 +48,31 @@ rust_test(
         "//conditions:default": [],
     }),
 )
+
+filegroup(
+    name = "extra_files",
+    srcs = ["src/file_a", "src/file_b"],
+)
+
+rust_test(
+    name = "test_foo_bar",
+    srcs = ["tests/manifest_dir.rs"],
+    data = ["@platforms//:srcs","src/manifest_dir_file.txt"],
+    env = {
+        "EXTRA_FILES": "$(locations @platforms//:srcs)",
+    },
+    edition = "2018",
+    target_compatible_with = select({
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
+)
+
+rust_test(
+    name = "test_env_locations_external",
+    srcs = ["tests/test_env_locations_external.rs"],
+    data = ["@wasm_spec_testsuite//:memory64_wast_files"],
+    env = {
+        "THE_FILES": "$(locations @wasm_spec_testsuite//:memory64_wast_files)",
+    },
+)
