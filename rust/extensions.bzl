@@ -300,12 +300,26 @@ _RUST_TOOLCHAIN_TAG = tag_class(
     } | _COMMON_TAG_KWARGS,
 )
 
+_RUST_STRIP_LEVEL_SELECT = tag_class(
+    doc = "Todo."
+    attrs = {
+        "triples": attr.string_list(
+            doc = "A list of triples to apply the annotation to.",
+            mandatory = True,
+        ),
+        "dbg": attr.string(),
+        "fastbuild": attr.string(),
+        "opt": attr.string(),
+    }
+)
+
 rust = module_extension(
     doc = "Rust toolchain extension.",
     implementation = _rust_impl,
     tag_classes = {
         "repository_set": _RUST_REPOSITORY_SET_TAG,
         "toolchain": _RUST_TOOLCHAIN_TAG,
+        "strip_level_select": _RUST_STRIP_LEVEL_SELECT,
     },
 )
 

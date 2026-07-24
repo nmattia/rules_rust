@@ -1620,6 +1620,19 @@ _annotation_select = tag_class(
     } | _ANNOTATION_SELECT_ATTRS,
 )
 
+_strip_level_select = tag_class(
+    doc = "Todo."
+    attrs = {
+        "triples": attr.string_list(
+            doc = "A list of triples to apply the annotation to.",
+            mandatory = True,
+        ),
+        "dbg": attr.string(),
+        "fastbuild": attr.string(),
+        "opt": attr.string(),
+    }
+)
+
 crate = module_extension(
     doc = """\
 Crate universe module extensions.
